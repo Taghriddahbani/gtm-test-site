@@ -2,7 +2,6 @@ document.addEventListener("DOMContentLoaded", function () {
   console.log("DOM fully loaded. Checking dataLayer...");
 
   // Ensure dataLayer is initialized
-  window.dataLayer = window.dataLayer || [];
   console.log("Current dataLayer:", window.dataLayer);
 
   const button = document.getElementById("apiRequestButton");
