@@ -17,9 +17,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const parameters = new URLSearchParams();
 
-    // Debugging: Check what's inside the dataLayer before looping
-    console.log("window.dataLayer content:", window.dataLayer);
-
     // Check if dataLayer is not empty
     if (window.dataLayer.length === 0) {
       console.warn("dataLayer is empty, no parameters will be sent.");
@@ -38,7 +35,8 @@ document.addEventListener("DOMContentLoaded", function () {
     fetch(url)
       .then((response) => response.json())
       .then((data) => {
-        console.log("API response:", data);
+        console.log("API response:");
+        console.table(data);
       })
       .catch((error) => {
         console.error("Request failed", error);
