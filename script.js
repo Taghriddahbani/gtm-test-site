@@ -1,9 +1,30 @@
-document
-  .getElementById("apiRequestButton")
-  .addEventListener("click", function () {
+document.addEventListener("DOMContentLoaded", function () {
+  console.log("DOM fully loaded. Checking dataLayer...");
+
+  // Ensure dataLayer is initialized
+  window.dataLayer = window.dataLayer || [];
+  console.log("Current dataLayer:", window.dataLayer);
+
+  const button = document.getElementById("apiRequestButton");
+
+  if (!button) {
+    console.error("Button not found!");
+    return;
+  }
+
+  button.addEventListener("click", function () {
+    console.log("Button clicked!");
+
     const parameters = new URLSearchParams();
-    // const key = window.dataLayer.find((item) => item.key)?.key;
-    // const value = window.dataLayer.find((item) => item.value)?.value;
+
+    // Debugging: Check what's inside the dataLayer before looping
+    console.log("window.dataLayer content:", window.dataLayer);
+
+    // Check if dataLayer is not empty
+    if (window.dataLayer.length === 0) {
+      console.warn("dataLayer is empty, no parameters will be sent.");
+      return;
+    }
 
     window.dataLayer.forEach((item) => {
       for (let key in item) {
@@ -12,6 +33,7 @@ document
     });
 
     const url = `https://httpbin.org/get?${parameters.toString()}`;
+    console.log("Generated URL:", url);
 
     fetch(url)
       .then((response) => response.json())
@@ -19,6 +41,7 @@ document
         console.log("API response:", data);
       })
       .catch((error) => {
-        console.error("request failed", error);
+        console.error("Request failed", error);
       });
   });
+});
